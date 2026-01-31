@@ -1,0 +1,11 @@
+# Target Python version
+target-version = "py311"
+
+[lint]
+# Enable Pyflakes (F) and Isort (I) rules
+select = ["F", "E", "W", "I"]
+ignore = []
+
+[format]
+quote-style = "double"
+indent-style = "space"

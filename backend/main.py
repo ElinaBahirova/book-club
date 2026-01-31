@@ -1,7 +1,10 @@
-from fastapi import FastAPI, Depends, HTTPException
+from pydoc import text
+
+from fastapi import Depends, FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
-from database import engine, get_db, Base
+from database import Base, engine, get_db
 from models import Book
 from schemas import BookCreate, BookResponse
 
@@ -10,6 +13,37 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Book Club API")
 
+origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "https://book-club-frontend-7kj3.onrender.com",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+@app.get("/api/health")
+def health_check(db: Session = Depends(get_db)):
+    try:
+        # Execute a simple query to verify the DB connection
+        db.execute(text("SELECT 1"))
+        return {
+            "status": "healthy",
+            "database": "connected",
+            "message": "Backend and Database are communicating correctly!"
+        }
+    except Exception as e:
+        # If the DB connection fails, return a 503 Service Unavailable
+        raise HTTPException(
+            status_code=503, 
+            detail=f"Database connection failed: {str(e)}"
+        )
 
 @app.get("/")
 def read_root():
