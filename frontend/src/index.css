@@ -1,4 +1,16 @@
+/* Light theme (default) */
 :root {
+  --color-bg: #f8f9fa;
+  --color-bg-card: #ffffff;
+  --color-text: #1a1a2e;
+  --color-text-muted: #6b7280;
+  --color-primary: #6366f1;
+  --color-primary-hover: #4f46e5;
+  --color-border: #e5e7eb;
+}
+
+/* Dark theme */
+.dark {
   --color-bg: #1a1a2e;
   --color-bg-card: #25253d;
   --color-text: #eaeaea;

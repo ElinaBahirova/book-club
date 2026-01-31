@@ -1,5 +1,6 @@
 import { Link, Outlet } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
+import { ThemeToggle } from '../ThemeToggle'
 import styles from './Layout.module.css'
 
 export function Layout() {
@@ -26,6 +27,7 @@ export function Layout() {
               Books
             </Link>
           </div>
+          <ThemeToggle />
         </nav>
       </header>
       <main className={styles.main}>
